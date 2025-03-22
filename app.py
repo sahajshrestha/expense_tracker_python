@@ -10,19 +10,34 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime
+from typing import List, Dict, Union
+import os
 
 app = Flask(__name__, template_folder='ui')
 
-# In-memory storage for expenses (each expense is a dictionary)
-expenses = []
-categories = {"Default Category"}  # Initialize with default category, should use a set to avoid duplicates
+# Define a TypedDict for expense structure
+from typing import TypedDict
 
-def add_expense(date_str, amount, category, description):
+class Expense(TypedDict):
+    date: datetime
+    amount: float
+    category: str
+    description: str
+
+# Added some type safety for expenses
+expenses: List[Expense] = []
+categories: set[str] = {"Default Category"}
+
+def add_expense(date_str: str, amount: str, category: str, description: str) -> None:
     """
     Adds a new expense to the in-memory list.
-    Expects date_str in YYYY-MM-DD format.
+    Args:
+        date_str: Date in YYYY-MM-DD format
+        amount: String representation of a float number
+        category: Category name
+        description: Expense description
     """
-    expense = {
+    expense: Expense = {
         "date": datetime.strptime(date_str, "%Y-%m-%d"),
         "amount": float(amount),
         "category": category,
@@ -71,12 +86,6 @@ def filter_expenses():
     search_term = request.args.get("search")
 
     filtered = expenses
-    if start_date:
-        start = datetime.strptime(start_date, "%Y-%m-%d")
-        filtered = [e for e in filtered if e["date"] >= start]
-    if end_date:
-        end = datetime.strptime(end_date, "%Y-%m-%d")
-        filtered = [e for e in filtered if e["date"] <= end]
     if category_filter:
         filtered = [e for e in filtered if e["category"] == category_filter]
     if search_term:
@@ -121,4 +130,4 @@ def summary():
                          expenses=expenses_by_category)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
