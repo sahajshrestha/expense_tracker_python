@@ -86,6 +86,15 @@ def filter_expenses():
     search_term = request.args.get("search")
 
     filtered = expenses
+    
+    # Add date filtering
+    if start_date:
+        start_date = datetime.strptime(start_date, "%Y-%m-%d")
+        filtered = [e for e in filtered if e["date"] >= start_date]
+    if end_date:
+        end_date = datetime.strptime(end_date, "%Y-%m-%d")
+        filtered = [e for e in filtered if e["date"] <= end_date]
+        
     if category_filter:
         filtered = [e for e in filtered if e["category"] == category_filter]
     if search_term:
@@ -130,4 +139,4 @@ def summary():
                          expenses=expenses_by_category)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8000)))
