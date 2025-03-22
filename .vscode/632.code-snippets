@@ -1,0 +1,34 @@
+{
+    "Copyright Header": {
+      "prefix": "header_python",
+      "body": [
+        "# Copyright (c) $CURRENT_YEAR - MSCS632 - Group 8 Spring 2025",
+        "# All rights reserved.",
+        "#",
+        "# This file is the property of MSCS632 - Group 8 Spring 2025.",
+        "# Unauthorized use, copying, or distribution is strictly prohibited.",
+        "# MSCS632 - Group 8 Spring 2025 reserves the right to take legal action",
+        "# against any person or entity who makes use of this file without the",
+        "# express written permission of MSCS632 - Group 8 Spring 2025.",
+        "# ",
+      ],
+      "description": "Insert MSCS632 - Group 8 Spring 2025 copyright header - python"
+    },
+    "Copyright Header HTML": {
+      "prefix": "header_html",
+      "body": [
+        "<!--",
+        " * Copyright (c) $CURRENT_YEAR - MSCS632 - Group 8 Spring 2025",
+        " * All rights reserved.",
+        " *",
+        " * This file is the property of MSCS632 - Group 8 Spring 2025.",
+        " * Unauthorized use, copying, or distribution is strictly prohibited.",
+        " * MSCS632 - Group 8 Spring 2025 reserves the right to take legal action",
+        " * against any person or entity who makes use of this file without the",   
+        " * express written permission of MSCS632 - Group 8 Spring 2025.",
+        " * ",
+        " -->"
+      ],
+      "description": "Insert MSCS632 - Group 8 Spring 2025 copyright header - html"
+    }
+  }

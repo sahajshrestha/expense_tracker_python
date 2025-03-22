@@ -1,0 +1,84 @@
+<!--
+ * Copyright (c) 2025 - MSCS632 - Group 8 Spring 2025
+ * All rights reserved.
+ *
+ * This file is the property of MSCS632 - Group 8 Spring 2025.
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ * MSCS632 - Group 8 Spring 2025 reserves the right to take legal action
+ * against any person or entity who makes use of this file without the
+ * express written permission of MSCS632 - Group 8 Spring 2025.
+ * 
+ -->
+
+<!doctype html>
+<html>
+  <head>
+    <title>Expense Summary</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  </head>
+  <body class="container">
+    <h1 class="mt-4">Expense Summary</h1>
+    <p><strong>Total Expenses:</strong> ${{ total }}</p>
+    
+
+    <h2 class="mt-4">Expenses by Category</h2>
+    
+    {% if not summary %}
+        <div class="alert alert-info">
+            No expenses recorded at the moment.
+        </div>
+    {% else %}
+        <div class="row">
+          {% for category, amount in summary.items() %}
+            <div class="col-md-6 mb-4">
+              <div class="card">
+                <div class="card-header bg-primary text-white">
+                  <h5 class="card-title mb-0">{{ category }}</h5>
+                </div>
+                <div class="card-body">
+                  <h6 class="card-subtitle mb-3">Total: ${{ amount }}</h6>
+                  
+                  <div class="accordion" id="accordion-{{ category|replace(' ', '-')|lower }}">
+                    <div class="card">
+                      <div class="card-header p-0" id="heading-{{ category|replace(' ', '-')|lower }}">
+                        <button class="btn btn-link btn-block text-left" type="button" 
+                                data-toggle="collapse" 
+                                data-target="#collapse-{{ category|replace(' ', '-')|lower }}">
+                          View Details
+                        </button>
+                      </div>
+                      <div id="collapse-{{ category|replace(' ', '-')|lower }}" 
+                           class="collapse" 
+                           data-parent="#accordion-{{ category|replace(' ', '-')|lower }}">
+                        <div class="card-body">
+                          {% if expenses[category] %}
+                            <ul class="list-unstyled">
+                              {% for expense in expenses[category] %}
+                                <li class="mb-2">
+                                  {{ expense.description }} - ${{ expense.amount }}
+                                  <small class="text-muted d-block">{{ expense.date }}</small>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          {% else %}
+                            <p class="text-muted">No detailed expenses available</p>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mb-4">Back</a>
+
+    <!-- Bootstrap - might be unecessary -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

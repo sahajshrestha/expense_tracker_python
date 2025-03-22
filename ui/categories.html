@@ -1,0 +1,58 @@
+<!--
+ * Copyright (c) 2025 - MSCS632 - Group 8 Spring 2025
+ * All rights reserved.
+ *
+ * This file is the property of MSCS632 - Group 8 Spring 2025.
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ * MSCS632 - Group 8 Spring 2025 reserves the right to take legal action
+ * against any person or entity who makes use of this file without the
+ * express written permission of MSCS632 - Group 8 Spring 2025.
+ * 
+ -->
+
+<!doctype html>
+<html>
+  <head>
+    <title>Manage Categories</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  </head>
+  <body class="container">
+    <h1 class="mt-4">Manage Categories</h1>
+    
+    <!-- Add Category Form -->
+    <form method="post" class="mb-4">
+      <div class="form-group">
+        <label>New Category:</label>
+        <div class="input-group">
+          <input type="text" name="category" class="form-control" required>
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Add Category</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Categories List -->
+    <h2>Existing Categories</h2>
+    <div class="row">
+      {% for category in categories %}
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ category }}</h5>
+              <div class="d-flex justify-content-end">
+                <a href="{{ url_for('delete_category', category=category) }}" 
+                   class="btn btn-danger btn-sm" 
+                   onclick="return confirm('Are you sure you want to delete this category?')">
+                   Delete
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Expenses</a>
+  </body>
+</html> 
