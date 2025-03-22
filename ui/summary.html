@@ -18,7 +18,8 @@
   </head>
   <body class="container">
     <h1 class="mt-4">Expense Summary</h1>
-    <p><strong>Total Expenses:</strong> ${{ total }}</p>
+    <p><strong>Total Expenses:</strong> <span style="color: {% if total >= 0 %}green{% else %}red{% endif %}">
+      ${{ total }}</span></p>
     
 
     <h2 class="mt-4">Expenses by Category</h2>
@@ -36,7 +37,8 @@
                   <h5 class="card-title mb-0">{{ category }}</h5>
                 </div>
                 <div class="card-body">
-                  <h6 class="card-subtitle mb-3">Total: ${{ amount }}</h6>
+                  <h6 class="card-subtitle mb-3">Total: <span style="color: {% if amount >= 0 %}green{% else %}red{% endif %}">
+                    ${{ amount }}</span></h6>
                   
                   <div class="accordion" id="accordion-{{ category|replace(' ', '-')|lower }}">
                     <div class="card">
