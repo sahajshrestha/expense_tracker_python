@@ -13,7 +13,7 @@ A Python-based expense tracking application.
 1. Open your terminal/command prompt
 2. Navigate to the project directory:
 ```bash
-cd 632_project
+cd expense_tracker_python
 ```
 
 3. Create a virtual environment:
