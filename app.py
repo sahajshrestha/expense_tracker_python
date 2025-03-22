@@ -45,6 +45,15 @@ def add_expense(date_str: str, amount: str, category: str, description: str) -> 
     }
     expenses.append(expense)
 
+def delete_expense(index: int) -> None:
+    """
+    Deletes an expense from the in-memory list by index.
+    Args:
+        index: Index of the expense to delete
+    """
+    if 0 <= index < len(expenses):
+        expenses.pop(index)
+
 @app.route("/categories", methods=["GET", "POST"])
 def manage_categories():
     if request.method == "POST":
@@ -137,6 +146,14 @@ def summary():
                          total=total_overall, 
                          summary=summary_by_category,
                          expenses=expenses_by_category)
+
+@app.route("/delete/<int:index>")
+def delete_expense_route(index):
+    """
+    Route to handle expense deletion
+    """
+    delete_expense(index)
+    return redirect(url_for("index"))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8000)))

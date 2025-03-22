@@ -54,10 +54,13 @@
                           {% if expenses[category] %}
                             <ul class="list-unstyled">
                               {% for expense in expenses[category] %}
-                                <li class="mb-2">
-                                  {{ expense.description }} - ${{ expense.amount }}
+                                <div class="mb-2">
+                                  * {{ expense.description }} - 
+                                  <span style="color: {% if expense.amount >= 0 %}green{% else %}red{% endif %}">
+                                    ${{ expense.amount }}
+                                  </span>
                                   <small class="text-muted d-block">{{ expense.date }}</small>
-                                </li>
+                                </div>
                               {% endfor %}
                             </ul>
                           {% else %}
